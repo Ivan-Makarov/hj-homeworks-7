@@ -4,7 +4,19 @@ const selector = document.querySelector('.tabs-nav');
 const content = document.querySelector('.tabs-content');
 const articles = [...content.querySelectorAll('[data-tab-title]')];
 
-articles.forEach(article => {
+articles.forEach(createTab);
+
+selector.removeChild(selector.firstElementChild);
+
+const tabs = [...selector.querySelectorAll('li')];
+
+articles.forEach(hideArticle);
+showArticle(articles[0]);
+
+tabs.forEach(dimTab);
+highlightTab(tabs[0]);
+
+function createTab(article) {
     const tab = selector.firstElementChild.cloneNode(true);
     tab.firstElementChild.classList.add(article.dataset.tabIcon);
     tab.firstElementChild.textContent = article.dataset.tabTitle;
@@ -18,9 +30,7 @@ articles.forEach(article => {
 
     tab.addEventListener('click', toggleArticles);
     selector.appendChild(tab)
-})
-
-selector.removeChild(selector.firstElementChild);
+}
 
 function showArticle(article) {
     article.classList.remove('hidden')
@@ -37,11 +47,3 @@ function highlightTab(tab) {
 function dimTab(tab) {
     tab.classList.remove('ui-tabs-active')
 }
-
-const tabs = [...selector.querySelectorAll('li')];
-
-articles.forEach(hideArticle);
-showArticle(articles[0]);
-
-tabs.forEach(dimTab);
-highlightTab(tabs[0]);
